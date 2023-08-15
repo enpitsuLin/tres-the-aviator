@@ -2,6 +2,7 @@
 import { watchOnce } from '@vueuse/core'
 import * as THREE from 'three'
 import { ref } from 'vue'
+import { useRenderLoop } from '@tresjs/core'
 import { Colors } from '../../colors'
 import { useGame } from '../../composables/useGame'
 
@@ -34,9 +35,7 @@ hairSideGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(-6, 0, 0))
 
 const angleHairs = ref(0)
 
-const deltaTime = 0
-
-function updateHairs() {
+function updateHairs(delta: number) {
   const hairs = hairsTop.value?.children ?? []
   const l = hairs?.length
 
@@ -44,27 +43,21 @@ function updateHairs() {
     const h = hairs[i]
     h.scale.y = 0.75 + Math.cos(angleHairs.value + i / 3) * 0.25
   }
-  angleHairs.value += game.speed * (deltaTime) * 40
+
+  angleHairs.value += (game.speed + 0.1) * (delta) * 40
 }
 
-defineExpose({ updateHairs })
+const { onLoop } = useRenderLoop()
+onLoop(({ delta }) => {
+  updateHairs(delta)
+})
 </script>
 
 <template>
   <TresObject3D name="hairs" :position="[-5, 5, 0]">
     <TresObject3D ref="hairsTop" name="hair-top" />
-    <TresMesh
-      name="hair-side-R"
-      :position="[8, -2, 6]"
-      :geometry="hairSideGeom"
-      :material="hairMat"
-    />
-    <TresMesh
-      name="hair-side-L"
-      :position="[8, -2, -6]"
-      :geometry="hairSideGeom"
-      :material="hairMat"
-    />
+    <TresMesh name="hair-side-R" :position="[8, -2, 6]" :geometry="hairSideGeom" :material="hairMat" />
+    <TresMesh name="hair-side-L" :position="[8, -2, -6]" :geometry="hairSideGeom" :material="hairMat" />
 
     <TresMesh name="hair-back" :position="[-1, -4, 0]" :material="hairMat">
       <TresBoxGeometry :args="[2, 8, 10]" />
