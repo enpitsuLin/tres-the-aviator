@@ -44,7 +44,7 @@ function updateHairs(delta: number) {
     h.scale.y = 0.75 + Math.cos(angleHairs.value + i / 3) * 0.25
   }
 
-  angleHairs.value += (game.speed + 0.1) * (delta) * 40
+  angleHairs.value += game.speed * (delta) * 40
 }
 
 const { onLoop } = useRenderLoop()

@@ -35,13 +35,13 @@ function moveClouds(deltaTime: number) {
   })
 
   if (sky.value)
-    sky.value.rotation.z += (game.speed + 0.1) * deltaTime
+    sky.value.rotation.z += game.speed * deltaTime
 }
 defineExpose({ moveClouds })
 </script>
 
 <template>
-  <TresObject3D ref="sky" name="sky">
+  <TresObject3D ref="sky" name="sky" :position-y="-game.seaRadius">
     <Cloud
       v-for="({ key, ...prop }) in cloudsProps"
       v-bind="prop"
