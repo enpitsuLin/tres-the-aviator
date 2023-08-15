@@ -6,7 +6,7 @@ import { useRenderLoop } from '@tresjs/core'
 import { Colors } from '../../colors'
 import { useGame } from '../../composables/useGame'
 
-const game = useGame()
+const { game } = useGame()
 
 const hairGeom = new THREE.BoxGeometry(4, 4, 4)
 const hairMat = new THREE.MeshLambertMaterial({ color: Colors.brown })

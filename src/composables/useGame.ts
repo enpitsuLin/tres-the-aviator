@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 
-const game = {
+const DEFAULT_GAME = {
   speed: 0,
   initSpeed: 0.00035,
   baseSpeed: 0.00035,
@@ -63,5 +63,9 @@ const game = {
 }
 
 export function useGame() {
-  return reactive(game)
+  const game = reactive(DEFAULT_GAME)
+  function resetGame() {
+    Object.assign(game, DEFAULT_GAME)
+  }
+  return { game, resetGame }
 }

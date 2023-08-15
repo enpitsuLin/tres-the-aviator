@@ -24,7 +24,7 @@ geomPropellerVertices.needsUpdate = true
 
 const propeller = shallowRef<THREE.Mesh>()
 
-const game = useGame()
+const { game } = useGame()
 
 const { onLoop } = useRenderLoop()
 
