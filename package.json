@@ -11,7 +11,9 @@
   "dependencies": {
     "@tresjs/cientos": "^3.0.1",
     "@tresjs/core": "^3.0.1",
+    "@vueuse/core": "^10.3.0",
     "gasp": "^0.0.2",
+    "three": "^0.155.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
