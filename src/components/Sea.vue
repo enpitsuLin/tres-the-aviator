@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import * as THREE from 'three'
-import { ref } from 'vue'
+import { ref, shallowRef } from 'vue'
 import { useRenderLoop } from '@tresjs/core'
 import { useGame } from '../composables/useGame'
 import { Colors } from '../colors'
@@ -42,16 +42,25 @@ function moveWaves(delta: number) {
   }
 }
 
+const mesh = shallowRef<THREE.Mesh>()
+
 const { onLoop } = useRenderLoop()
 
 onLoop(({ delta }) => {
-  moveWaves(delta)
+  moveWaves(delta * 1000)
+  if (mesh.value) {
+    mesh.value.rotation.z += game.speed * delta * 1000//* game.seaRotationSpeed;
+
+    if (mesh.value.rotation.z > 2 * Math.PI)
+      mesh.value.rotation.z -= 2 * Math.PI
+  }
 })
 </script>
 
 <template>
-  <TresMesh name="waves" :geometry="geom" receive-shadow :position-y="-game.seaRadius">
+  <TresMesh ref="mesh" name="waves" :geometry="geom" receive-shadow :position-y="-game.seaRadius">
     <TresMeshPhongMaterial
+
       flat-shading
       transparent
       :side="THREE.DoubleSide"
