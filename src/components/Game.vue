@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { useRenderLoop } from '@tresjs/core'
 import { useGame } from '../composables/useGame'
+import { useCoinsHolder } from '../composables/useCoinsHolder'
 import Light from './Light.vue'
 import Pilot from './Pilot/index.vue'
 import AirPlane from './AirPlane/index.vue'
 import Sky from './Sky.vue'
 import Sea from './Sea.vue'
+import Coins from './Coins.vue'
 
 const { onLoop } = useRenderLoop()
 const { game } = useGame()
+const { spawnCoins } = useCoinsHolder()
 
 onLoop(({ delta: _delta }) => {
   const delta = _delta * 1000
@@ -18,9 +21,10 @@ onLoop(({ delta: _delta }) => {
   // levelCircle.setAttribute('stroke-dashoffset', d)
 
   if (game.status === 'playing') {
-    if (Math.floor(game.distance) % game.distanceForCoinsSpawn === 0 && Math.floor(game.distance) > game.coinLastSpawn)
+    if (Math.floor(game.distance) % game.distanceForCoinsSpawn === 0 && Math.floor(game.distance) > game.coinLastSpawn) {
       game.coinLastSpawn = Math.floor(game.distance)
-      // coinsHolder.spawnCoins()
+      spawnCoins()
+    }
 
     if (Math.floor(game.distance) % game.distanceForSpeedUpdate === 0 && Math.floor(game.distance) > game.speedLastUpdate) {
       game.speedLastUpdate = Math.floor(game.distance)
@@ -49,6 +53,7 @@ onLoop(({ delta: _delta }) => {
   <Light />
   <Sky />
   <Sea />
+  <Coins />
   <AirPlane>
     <Pilot :position="[-10, 27, 0]" />
   </AirPlane>

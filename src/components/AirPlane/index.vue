@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { useRenderLoop, useTres } from '@tresjs/core'
-import { computed, shallowRef, toValue } from 'vue'
+import { computed, toValue } from 'vue'
 import { useGame } from '../../composables/useGame'
 import { normalize } from '../../utils'
+import { useObjectsManager } from '../../composables/useObjectManager'
 import AirPlaneBody from './MainBody.vue'
 import PlaneWheel from './Wheel.vue'
 import Propeller from './Propeller.vue'
@@ -15,7 +16,7 @@ const { width, height } = useWindowSize()
 const { camera: _camera } = useTres()
 const { onLoop } = useRenderLoop()
 
-const airplane = shallowRef<THREE.Object3D>()
+const { airplane } = useObjectsManager()
 
 const computedPos = computed(() => ({
   x: -1 + (x.value / width.value) * 2,
