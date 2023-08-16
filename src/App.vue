@@ -7,7 +7,13 @@ const { game } = useGame()
 </script>
 
 <template>
-  <TresCanvas clear-color="gray" window-size shadow>
+  <TresCanvas
+    alpha
+    antialias
+    window-size
+    use-legacy-lights
+    style=" background: linear-gradient(#e4e0ba, #f7d9aa);"
+  >
     <TresPerspectiveCamera
       :position="[0, 200, game.planeDefaultHeight]"
     />
