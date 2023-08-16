@@ -13,7 +13,7 @@ const cloudsProps = Array.from({ length: nClouds }, (_, i) => {
   const a = stepAngle * i
   const h = game.seaRadius + 150 + Math.random() * 200
   return {
-    position: new THREE.Vector3(Math.cos(a) * h, Math.cos(a) * h),
+    position: new THREE.Vector3(Math.cos(a) * h, Math.sin(a) * h, -300 - Math.random() * 500),
     rotationZ: a + Math.PI * 2,
     key: `${i}`,
   }
