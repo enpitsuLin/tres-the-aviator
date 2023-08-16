@@ -2,16 +2,19 @@
 import { useRenderLoop } from '@tresjs/core'
 import { useGame } from '../composables/useGame'
 import { useCoinsHolder } from '../composables/useCoinsHolder'
+import { useEnemiesHolder } from '../composables/useEnemiesHolder'
 import Light from './Light.vue'
 import Pilot from './Pilot/index.vue'
 import AirPlane from './AirPlane/index.vue'
 import Sky from './Sky.vue'
 import Sea from './Sea.vue'
 import Coins from './Coins.vue'
+import Enemies from './Enemies.vue'
 
 const { onLoop } = useRenderLoop()
 const { game } = useGame()
 const { spawnCoins } = useCoinsHolder()
+const { spawnEnemies } = useEnemiesHolder()
 
 onLoop(({ delta: _delta }) => {
   const delta = _delta * 1000
@@ -31,9 +34,10 @@ onLoop(({ delta: _delta }) => {
       game.targetBaseSpeed += game.incrementSpeedByTime * delta
     }
 
-    if (Math.floor(game.distance) % game.distanceForEnnemiesSpawn === 0 && Math.floor(game.distance) > game.ennemyLastSpawn)
+    if (Math.floor(game.distance) % game.distanceForEnnemiesSpawn === 0 && Math.floor(game.distance) > game.ennemyLastSpawn) {
       game.ennemyLastSpawn = Math.floor(game.distance)
-      // ennemiesHolder.spawnEnnemies()
+      spawnEnemies()
+    }
 
     if (Math.floor(game.distance) % game.distanceForLevelUpdate === 0 && Math.floor(game.distance) > game.levelLastUpdate) {
       game.levelLastUpdate = Math.floor(game.distance)
@@ -54,6 +58,7 @@ onLoop(({ delta: _delta }) => {
   <Sky />
   <Sea />
   <Coins />
+  <Enemies />
   <AirPlane>
     <Pilot :position="[-10, 27, 0]" />
   </AirPlane>
