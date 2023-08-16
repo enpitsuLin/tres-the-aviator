@@ -10,6 +10,7 @@ import Sky from './Sky.vue'
 import Sea from './Sea.vue'
 import Coins from './Coins.vue'
 import Enemies from './Enemies.vue'
+import Particles from './Particles.vue'
 
 const { onLoop } = useRenderLoop()
 const { game } = useGame()
@@ -59,6 +60,7 @@ onLoop(({ delta: _delta }) => {
   <Sea />
   <Coins />
   <Enemies />
+  <Particles />
   <AirPlane>
     <Pilot :position="[-10, 27, 0]" />
   </AirPlane>

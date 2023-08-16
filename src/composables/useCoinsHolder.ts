@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { shallowRef } from 'vue'
 import { useGame } from './useGame'
+import { useParticlesHolder } from './useParticlesHolder'
+import { useObjectsManager } from './useObjectManager'
 
 export class Coin {
   mesh: THREE.Mesh
@@ -26,6 +28,8 @@ export const coinsInUse = shallowRef<Coin[]>([])
 
 export function useCoinsHolder() {
   const { game } = useGame()
+  const { airplane } = useObjectsManager()
+  const { spawnParticles } = useParticlesHolder()
 
   function spawnCoins() {
     const nCoins = 1 + Math.floor(Math.random() * 10)
@@ -47,5 +51,34 @@ export function useCoinsHolder() {
       coin.mesh.position.x = Math.cos(coin.angle) * coin.distance
     }
   }
-  return { spawnCoins, mesh, coinsPool, coinsInUse }
+
+  function rotateCoins(deltaTime: number) {
+    for (let i = 0; i < coinsInUse.value.length; i++) {
+      const coin = coinsInUse.value[i]
+      coin.angle += game.speed * deltaTime * game.coinsSpeed
+      if (coin.angle > Math.PI * 2)
+        coin.angle -= Math.PI * 2
+      coin.mesh.position.y = -game.seaRadius + Math.sin(coin.angle) * coin.distance
+      coin.mesh.position.x = Math.cos(coin.angle) * coin.distance
+      coin.mesh.rotation.z += Math.random() * 0.1
+      coin.mesh.rotation.y += Math.random() * 0.1
+
+      const diffPos = airplane.value?.position.clone().sub(coin.mesh.position.clone())
+      const d = diffPos?.length()
+      if (d && d < game.coinDistanceTolerance) {
+        coinsPool.value.unshift(coinsInUse.value.splice(i, 1)[0])
+        mesh.value?.remove(coin.mesh)
+
+        spawnParticles(coin.mesh.position.clone(), 5, 0x009999, 0.8)
+        // addEnergy()
+        i--
+      }
+      else if (coin.angle > Math.PI) {
+        coinsPool.value.unshift(coinsInUse.value.splice(i, 1)[0])
+        mesh.value?.remove(coin.mesh)
+        i--
+      }
+    }
+  }
+  return { spawnCoins, mesh, coinsPool, coinsInUse, rotateCoins }
 }

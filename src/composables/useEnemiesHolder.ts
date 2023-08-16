@@ -3,6 +3,7 @@ import { shallowRef } from 'vue'
 import { Colors } from '../colors'
 import { useGame } from './useGame'
 import { useObjectsManager } from './useObjectManager'
+import { useParticlesHolder } from './useParticlesHolder'
 
 export class Enemy {
   mesh: THREE.Mesh<THREE.TetrahedronGeometry, THREE.MeshPhongMaterial>
@@ -27,6 +28,7 @@ export const enemiesInUse = shallowRef<Enemy[]>([])
 export const enemiesPool = shallowRef<Enemy[]>([])
 
 export function useEnemiesHolder() {
+  const { spawnParticles } = useParticlesHolder()
   const { game } = useGame()
   const { airplane } = useObjectsManager()
 
@@ -65,7 +67,10 @@ export function useEnemiesHolder() {
 
       const diffPos = airplane.value?.position.clone().sub(enemy.mesh.position.clone())
       const d = diffPos?.length()
+
       if (d && d < game.ennemyDistanceTolerance) {
+        spawnParticles(enemy.mesh.position.clone(), 15, Colors.red, 3)
+
         enemiesPool.value.unshift(enemiesInUse.value.splice(i, 1)[0])
         mesh.value?.remove(enemy.mesh)
         game.planeCollisionSpeedX = 100 * diffPos!.x / d

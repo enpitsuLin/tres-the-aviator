@@ -1,7 +1,7 @@
 import { shallowRef } from 'vue'
 
-export function useObjectsManager() {
-  const airplane = shallowRef<THREE.Object3D>()
+const airplane = shallowRef<THREE.Object3D>()
 
+export function useObjectsManager() {
   return { airplane }
 }
