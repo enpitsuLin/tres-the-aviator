@@ -22,7 +22,8 @@ const computedPos = computed(() => ({
   y: 1 - (y.value / height.value) * 2,
 }))
 
-onLoop(({ delta: deltaTime }) => {
+onLoop(({ delta }) => {
+  const deltaTime = delta * 1000
   const mousePos = toValue(computedPos)
   game.planeSpeed = normalize(mousePos.x, -0.5, 0.5, game.planeMinSpeed, game.planeMaxSpeed)
 

@@ -49,7 +49,7 @@ function updateHairs(delta: number) {
 
 const { onLoop } = useRenderLoop()
 onLoop(({ delta }) => {
-  updateHairs(delta)
+  updateHairs(delta * 1000)
 })
 </script>
 

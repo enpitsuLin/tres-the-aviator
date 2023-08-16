@@ -29,8 +29,9 @@ const { game } = useGame()
 const { onLoop } = useRenderLoop()
 
 onLoop(({ delta }) => {
+  const deltaTime = delta * 1000
   if (propeller.value)
-    propeller.value.rotation.x += 0.2 + game.planeSpeed * delta * 0.005
+    propeller.value.rotation.x += 0.2 + game.planeSpeed * deltaTime * 0.005
 })
 </script>
 

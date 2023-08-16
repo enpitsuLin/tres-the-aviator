@@ -23,7 +23,7 @@ const clouds = ref<InstanceType<typeof Cloud>[]>([])
 
 const { onLoop } = useRenderLoop()
 onLoop(({ delta }) => {
-  moveClouds(delta)
+  moveClouds(delta * 1000)
 })
 
 function moveClouds(deltaTime: number) {
