@@ -8,7 +8,7 @@ import './styles/game.css'
 
 const { game, resetGame } = useGame()
 
-useEventListener(['mouseup', 'touchend'], () => {
+useEventListener(document, ['mouseup', 'touchend'], () => {
   if (game.status === 'waitingReplay')
     resetGame()
 })

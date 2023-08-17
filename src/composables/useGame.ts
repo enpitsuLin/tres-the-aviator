@@ -62,11 +62,13 @@ const DEFAULT_GAME = {
   status: 'playing' as 'playing' | 'gameover' | 'waitingReplay',
 }
 
+const game = reactive({ ...DEFAULT_GAME })
+
 export function useGame() {
-  const game = reactive(DEFAULT_GAME)
   function resetGame() {
     Object.assign(game, DEFAULT_GAME)
   }
+
   function addEnergy() {
     game.energy += game.coinValue
     game.energy = Math.min(game.energy, 100)
