@@ -1,4 +1,4 @@
-import { reactive, watch } from 'vue'
+import { reactive } from 'vue'
 
 const DEFAULT_GAME = {
   speed: 0,
@@ -78,11 +78,6 @@ export function useGame() {
     game.energy -= game.ennemyValue
     game.energy = Math.max(0, game.energy)
   }
-
-  watch(() => game.energy, (energy) => {
-    if (energy < 1)
-      game.status = 'gameover'
-  })
 
   return { game, resetGame, addEnergy, removeEnergy }
 }

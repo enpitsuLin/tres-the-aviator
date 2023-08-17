@@ -45,7 +45,14 @@ onLoop(({ delta: _delta }) => {
       game.targetBaseSpeed = game.initSpeed + game.incrementSpeedByLevel * game.level
     }
 
+    // updateDistance
     game.distance += game.speed * deltaTime * game.ratioSpeedDistance
+
+    // updateEnergy
+    game.energy -= game.speed * deltaTime * game.ratioSpeedEnergy
+    game.energy = Math.max(0, game.energy)
+    if (game.energy < 1)
+      game.status = 'gameover'
 
     game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02
     game.speed = game.baseSpeed * game.planeSpeed
