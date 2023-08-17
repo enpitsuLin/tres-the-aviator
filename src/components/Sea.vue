@@ -58,12 +58,16 @@ onLoop(({ delta }) => {
 </script>
 
 <template>
-  <TresMesh ref="mesh" name="waves" :geometry="geom" receive-shadow :position-y="-game.seaRadius">
+  <TresMesh
+    ref="mesh"
+    name="waves"
+    receive-shadow
+    :geometry="geom"
+    :position-y="-game.seaRadius"
+  >
     <TresMeshPhongMaterial
-
       flat-shading
       transparent
-      :side="THREE.DoubleSide"
       :color="Colors.blue"
       :opacity=".8"
     />

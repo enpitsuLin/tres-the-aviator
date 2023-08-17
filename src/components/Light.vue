@@ -40,10 +40,10 @@ onLoop(({ delta }) => {
     cast-shadow
     :color="0xFFFFFF"
     :intensity=".9"
+    :position="[150, 350, 350]"
   />
   <TresCameraHelper
     v-if="shadowLight && isReady"
     :args="[shadowLight.shadow.camera]"
-    :position="[150, 350, 350]"
   />
 </template>

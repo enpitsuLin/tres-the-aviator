@@ -21,10 +21,6 @@ const { airplane } = useObjectsManager()
 
 onLoop(({ delta: _delta }) => {
   const deltaTime = _delta * 1000
-  game.distance += game.speed * deltaTime * game.ratioSpeedDistance
-  // fieldDistance.innerHTML = Math.floor(game.distance)
-  // const d = 502 * (1 - (game.distance % game.distanceForLevelUpdate) / game.distanceForLevelUpdate)
-  // levelCircle.setAttribute('stroke-dashoffset', d)
 
   if (game.status === 'playing') {
     if (Math.floor(game.distance) % game.distanceForCoinsSpawn === 0 && Math.floor(game.distance) > game.coinLastSpawn) {
@@ -45,10 +41,14 @@ onLoop(({ delta: _delta }) => {
     if (Math.floor(game.distance) % game.distanceForLevelUpdate === 0 && Math.floor(game.distance) > game.levelLastUpdate) {
       game.levelLastUpdate = Math.floor(game.distance)
       game.level++
-      // fieldLevel.innerHTML = Math.floor(game.level)
 
       game.targetBaseSpeed = game.initSpeed + game.incrementSpeedByLevel * game.level
     }
+
+    game.distance += game.speed * deltaTime * game.ratioSpeedDistance
+
+    game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02
+    game.speed = game.baseSpeed * game.planeSpeed
   }
   else if (game.status === 'gameover') {
     if (!airplane.value)
@@ -59,14 +59,12 @@ onLoop(({ delta: _delta }) => {
     game.planeFallSpeed *= 1.05
     airplane.value.position.y -= game.planeFallSpeed * deltaTime
 
-    if (airplane.value.position.y < -200) {
-      // showReplay()
+    if (airplane.value.position.y < -200)
       game.status = 'waitingReplay'
-    }
   }
-
-  game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02
-  game.speed = game.baseSpeed * game.planeSpeed
+  else if (game.status === 'waitingReplay') {
+    // Do nothing
+  }
 })
 </script>
 

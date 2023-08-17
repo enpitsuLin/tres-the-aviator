@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
+import { useEventListener } from '@vueuse/core'
 import Game from './components/Game.vue'
 import { useGame } from './composables/useGame'
 import './styles/demo.css'
 import './styles/game.css'
 
-const { game } = useGame()
+const { game, resetGame } = useGame()
+
+useEventListener(['mouseup', 'touchend'], () => {
+  if (game.status === 'waitingReplay')
+    resetGame()
+})
 </script>
 
 <template>
@@ -19,11 +25,16 @@ const { game } = useGame()
             level
           </div>
           <div id="levelValue" class="score__value score__value--level">
-            1
+            {{ game.level }}
           </div>
           <svg id="levelCircle" class="level-circle" viewbox="0 0 200 200">
             <circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#d1b790" stroke-width="24px" />
-            <circle id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502" />
+            <circle
+              id="levelCircleStroke"
+              r="80" cx="100" cy="100"
+              fill="none" stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502"
+              :stroke-dashoffset="502 * (1 - (game.distance % game.distanceForLevelUpdate) / game.distanceForLevelUpdate)"
+            />
           </svg>
         </div>
         <div id="dist" class="score__content">
@@ -31,7 +42,7 @@ const { game } = useGame()
             distance
           </div>
           <div id="distValue" class="score__value score__value--dist">
-            000
+            {{ Math.floor(game.distance) }}
           </div>
         </div>
         <div id="energy" class="score__content">
@@ -39,7 +50,14 @@ const { game } = useGame()
             energy
           </div>
           <div id="energyValue" class="score__value score__value--energy">
-            <div id="energyBar" class="energy-bar" />
+            <div
+              id="energyBar" class="energy-bar"
+              :style="{
+                right: `${100 - game.energy}%`,
+                backgroundColor: (game.energy < 50) ? '#f25346' : '#68c3c0',
+                animationName: game.energy < 30 ? 'blinking' : 'none',
+              }"
+            />
           </div>
         </div>
       </div>
@@ -59,7 +77,7 @@ const { game } = useGame()
         <Game />
       </TresCanvas>
     </div>
-    <div id="replayMessage" class="message message--replay">
+    <div v-show="game.status === 'waitingReplay'" id="replayMessage" class="message message--replay">
       Click to Replay
     </div>
     <div id="instructions" class="message message--instructions">
@@ -67,6 +85,3 @@ const { game } = useGame()
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

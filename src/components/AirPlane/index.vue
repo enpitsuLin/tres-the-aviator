@@ -26,33 +26,35 @@ const computedPos = computed(() => ({
 onLoop(({ delta }) => {
   const deltaTime = delta * 1000
   const mousePos = toValue(computedPos)
-  game.planeSpeed = normalize(mousePos.x, -0.5, 0.5, game.planeMinSpeed, game.planeMaxSpeed)
+  if (game.status === 'playing') {
+    game.planeSpeed = normalize(mousePos.x, -0.5, 0.5, game.planeMinSpeed, game.planeMaxSpeed)
 
-  let targetY = normalize(mousePos.y, -0.75, 0.75, game.planeDefaultHeight - game.planeAmpHeight, game.planeDefaultHeight + game.planeAmpHeight)
-  let targetX = normalize(mousePos.x, -1, 1, -game.planeAmpWidth * 0.7, -game.planeAmpWidth)
-  game.planeCollisionDisplacementX += game.planeCollisionSpeedX
-  targetX += game.planeCollisionDisplacementX
+    let targetY = normalize(mousePos.y, -0.75, 0.75, game.planeDefaultHeight - game.planeAmpHeight, game.planeDefaultHeight + game.planeAmpHeight)
+    let targetX = normalize(mousePos.x, -1, 1, -game.planeAmpWidth * 0.7, -game.planeAmpWidth)
+    game.planeCollisionDisplacementX += game.planeCollisionSpeedX
+    targetX += game.planeCollisionDisplacementX
 
-  game.planeCollisionDisplacementY += game.planeCollisionSpeedY
-  targetY += game.planeCollisionDisplacementY
+    game.planeCollisionDisplacementY += game.planeCollisionSpeedY
+    targetY += game.planeCollisionDisplacementY
 
-  if (airplane.value) {
-    airplane.value.position.y += (targetY - airplane.value.position.y) * deltaTime * game.planeMoveSensivity
-    airplane.value.position.x += (targetX - airplane.value.position.x) * deltaTime * game.planeMoveSensivity
+    if (airplane.value) {
+      airplane.value.position.y += (targetY - airplane.value.position.y) * deltaTime * game.planeMoveSensivity
+      airplane.value.position.x += (targetX - airplane.value.position.x) * deltaTime * game.planeMoveSensivity
 
-    airplane.value.rotation.z = (targetY - airplane.value.position.y) * deltaTime * game.planeRotXSensivity
-    airplane.value.rotation.x = (airplane.value.position.y - targetY) * deltaTime * game.planeRotZSensivity
+      airplane.value.rotation.z = (targetY - airplane.value.position.y) * deltaTime * game.planeRotXSensivity
+      airplane.value.rotation.x = (airplane.value.position.y - targetY) * deltaTime * game.planeRotZSensivity
+    }
+    const camera = _camera.value as THREE.PerspectiveCamera
+
+    camera.fov = normalize(mousePos.x, -1, 1, 40, 80)
+    camera.updateProjectionMatrix()
+    camera.position.y += ((airplane.value?.position.y ?? game.planeDefaultHeight) - camera.position.y) * deltaTime * game.cameraSensivity
+
+    game.planeCollisionSpeedX += (0 - game.planeCollisionSpeedX) * deltaTime * 0.03
+    game.planeCollisionDisplacementX += (0 - game.planeCollisionDisplacementX) * deltaTime * 0.01
+    game.planeCollisionSpeedY += (0 - game.planeCollisionSpeedY) * deltaTime * 0.03
+    game.planeCollisionDisplacementY += (0 - game.planeCollisionDisplacementY) * deltaTime * 0.01
   }
-  const camera = _camera.value as THREE.PerspectiveCamera
-
-  camera.fov = normalize(mousePos.x, -1, 1, 40, 80)
-  camera.updateProjectionMatrix()
-  camera.position.y += ((airplane.value?.position.y ?? game.planeDefaultHeight) - camera.position.y) * deltaTime * game.cameraSensivity
-
-  game.planeCollisionSpeedX += (0 - game.planeCollisionSpeedX) * deltaTime * 0.03
-  game.planeCollisionDisplacementX += (0 - game.planeCollisionDisplacementX) * deltaTime * 0.01
-  game.planeCollisionSpeedY += (0 - game.planeCollisionSpeedY) * deltaTime * 0.03
-  game.planeCollisionDisplacementY += (0 - game.planeCollisionDisplacementY) * deltaTime * 0.01
 })
 </script>
 
