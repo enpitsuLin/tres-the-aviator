@@ -27,7 +27,7 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
           <div id="levelValue" class="score__value score__value--level">
             {{ game.level }}
           </div>
-          <svg id="levelCircle" class="level-circle" viewbox="0 0 200 200">
+          <svg id="levelCircle" class="level-circle" viewBox="0 0 200 200">
             <circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#d1b790" stroke-width="24px" />
             <circle
               id="levelCircleStroke"
