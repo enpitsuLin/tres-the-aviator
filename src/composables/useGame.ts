@@ -67,5 +67,14 @@ export function useGame() {
   function resetGame() {
     Object.assign(game, DEFAULT_GAME)
   }
-  return { game, resetGame }
+  function addEnergy() {
+    game.energy += game.coinValue
+    game.energy = Math.min(game.energy, 100)
+  }
+
+  function removeEnergy() {
+    game.energy -= game.ennemyValue
+    game.energy = Math.max(0, game.energy)
+  }
+  return { game, resetGame, addEnergy, removeEnergy }
 }

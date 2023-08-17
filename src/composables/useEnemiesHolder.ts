@@ -29,8 +29,8 @@ export const enemiesPool = shallowRef<Enemy[]>([])
 
 export function useEnemiesHolder() {
   const { spawnParticles } = useParticlesHolder()
-  const { game } = useGame()
-  const { airplane } = useObjectsManager()
+  const { game, removeEnergy } = useGame()
+  const { airplane, ambientLight } = useObjectsManager()
 
   function spawnEnemies() {
     const nEnemies = game.level
@@ -75,9 +75,10 @@ export function useEnemiesHolder() {
         mesh.value?.remove(enemy.mesh)
         game.planeCollisionSpeedX = 100 * diffPos!.x / d
         game.planeCollisionSpeedY = 100 * diffPos!.y / d
-        // ambientLight.intensity = 2
+        if (ambientLight.value)
+          ambientLight.value.intensity = 2
 
-        // removeEnergy()
+        removeEnergy()
         i--
       }
       else if (enemy.angle > Math.PI) {

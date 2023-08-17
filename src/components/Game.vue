@@ -3,6 +3,7 @@ import { useRenderLoop } from '@tresjs/core'
 import { useGame } from '../composables/useGame'
 import { useCoinsHolder } from '../composables/useCoinsHolder'
 import { useEnemiesHolder } from '../composables/useEnemiesHolder'
+import { useObjectsManager } from '../composables/useObjectManager'
 import Light from './Light.vue'
 import Pilot from './Pilot/index.vue'
 import AirPlane from './AirPlane/index.vue'
@@ -16,10 +17,11 @@ const { onLoop } = useRenderLoop()
 const { game } = useGame()
 const { spawnCoins } = useCoinsHolder()
 const { spawnEnemies } = useEnemiesHolder()
+const { airplane } = useObjectsManager()
 
 onLoop(({ delta: _delta }) => {
-  const delta = _delta * 1000
-  game.distance += game.speed * delta * game.ratioSpeedDistance
+  const deltaTime = _delta * 1000
+  game.distance += game.speed * deltaTime * game.ratioSpeedDistance
   // fieldDistance.innerHTML = Math.floor(game.distance)
   // const d = 502 * (1 - (game.distance % game.distanceForLevelUpdate) / game.distanceForLevelUpdate)
   // levelCircle.setAttribute('stroke-dashoffset', d)
@@ -32,7 +34,7 @@ onLoop(({ delta: _delta }) => {
 
     if (Math.floor(game.distance) % game.distanceForSpeedUpdate === 0 && Math.floor(game.distance) > game.speedLastUpdate) {
       game.speedLastUpdate = Math.floor(game.distance)
-      game.targetBaseSpeed += game.incrementSpeedByTime * delta
+      game.targetBaseSpeed += game.incrementSpeedByTime * deltaTime
     }
 
     if (Math.floor(game.distance) % game.distanceForEnnemiesSpawn === 0 && Math.floor(game.distance) > game.ennemyLastSpawn) {
@@ -48,8 +50,22 @@ onLoop(({ delta: _delta }) => {
       game.targetBaseSpeed = game.initSpeed + game.incrementSpeedByLevel * game.level
     }
   }
+  else if (game.status === 'gameover') {
+    if (!airplane.value)
+      return
+    game.speed *= 0.99
+    airplane.value.rotation.z += (-Math.PI / 2 - airplane.value.rotation.z) * 0.0002 * deltaTime
+    airplane.value.rotation.x += 0.0003 * deltaTime
+    game.planeFallSpeed *= 1.05
+    airplane.value.position.y -= game.planeFallSpeed * deltaTime
 
-  game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * delta * 0.02
+    if (airplane.value.position.y < -200) {
+      // showReplay()
+      game.status = 'waitingReplay'
+    }
+  }
+
+  game.baseSpeed += (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02
   game.speed = game.baseSpeed * game.planeSpeed
 })
 </script>

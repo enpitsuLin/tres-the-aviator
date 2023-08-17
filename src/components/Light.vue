@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type * as THREE from 'three'
 import { ref, shallowRef, watchPostEffect } from 'vue'
+import { useRenderLoop } from '@tresjs/core'
+import { useObjectsManager } from '../composables/useObjectManager'
+
+const { ambientLight } = useObjectsManager()
 
 const shadowLight = shallowRef<THREE.DirectionalLight>()
 const isReady = ref(false)
@@ -19,11 +23,18 @@ watchPostEffect(() => {
 
   isReady.value = true
 })
+
+const { onLoop } = useRenderLoop()
+
+onLoop(({ delta }) => {
+  if (ambientLight.value)
+    ambientLight.value.intensity += (0.5 - ambientLight.value.intensity) * delta * 5
+})
 </script>
 
 <template>
   <TresHemisphereLight :args="[0xAAAAAA, 0x000000, 0.9]" />
-  <TresAmbientLight :color="0xDC8874" :intensity=".5" />
+  <TresAmbientLight ref="ambientLight" :color="0xDC8874" :intensity=".5" />
   <TresDirectionalLight
     ref="shadowLight"
     cast-shadow

@@ -27,7 +27,7 @@ export const coinsPool = shallowRef()
 export const coinsInUse = shallowRef<Coin[]>([])
 
 export function useCoinsHolder() {
-  const { game } = useGame()
+  const { game, addEnergy } = useGame()
   const { airplane } = useObjectsManager()
   const { spawnParticles } = useParticlesHolder()
 
@@ -70,7 +70,7 @@ export function useCoinsHolder() {
         mesh.value?.remove(coin.mesh)
 
         spawnParticles(coin.mesh.position.clone(), 5, 0x009999, 0.8)
-        // addEnergy()
+        addEnergy()
         i--
       }
       else if (coin.angle > Math.PI) {
