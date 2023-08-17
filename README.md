@@ -9,9 +9,9 @@ The game for the tutorial "The Making of 'The Aviator': Animating a Basic 3D Sce
 
 ## Credits
 
-[Three.js](http://threejs.org/)
-[TheAviator](https://github.com/yakudoo/TheAviator) (origin version by yakudoo)
-[greensock](https://greensock.com/)
+- [Three.js](http://threejs.org/)
+- [TheAviator](https://github.com/yakudoo/TheAviator) (origin version by yakudoo)
+- [greensock](https://greensock.com/)
 
 ## License
 
