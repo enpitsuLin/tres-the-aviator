@@ -12,6 +12,7 @@ const geom = new THREE.CylinderGeometry(game.seaRadius, game.seaRadius, game.sea
 
 const vertices = geom.getAttribute('position') as THREE.BufferAttribute
 const l = vertices.count
+
 geom.applyMatrix4(new THREE.Matrix4().makeRotationX(-Math.PI / 2))
 vertices.needsUpdate = true
 
@@ -33,7 +34,10 @@ for (let i = 0; i < l; i++) {
 
 function moveWaves(delta: number) {
   for (let i = 0; i < l; i++) {
+    if (i % 41 === 0 || (i + 1) % 41 === 0)
+      continue
     const vprops = waves.value[i]
+
     vertices.setX(i, vprops.x + Math.cos(vprops.ang) * vprops.amp)
     vertices.setY(i, vprops.y + Math.sin(vprops.ang) * vprops.amp)
 
