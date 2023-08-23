@@ -1,6 +1,6 @@
 <template>
   <a
-    href="https://github.com/enpitsuLin/tres-the-aviatorl" target="_blank" class="github-corner"
+    href="https://github.com/enpitsuLin/tres-the-aviator" target="_blank" class="github-corner"
     aria-label="View source on Github"
   >
     <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#68c3c0; color:#fff;" aria-hidden="true">
