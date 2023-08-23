@@ -2,6 +2,7 @@
 import { TresCanvas } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
 import Game from './components/Game.vue'
+import GithubCorners from './components/GithubCorners.vue'
 import { useGame } from './composables/useGame'
 import './styles/demo.css'
 import './styles/game.css'
@@ -15,6 +16,7 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
 </script>
 
 <template>
+  <GithubCorners />
   <div class="game-holder">
     <div class="header">
       <h1><span>the</span>Aviator</h1>
