@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { TresCanvas } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
+import { useHead } from '@vueuse/head'
 import Game from './components/Game.vue'
 import GithubCorners from './components/GithubCorners.vue'
 import { useGame } from './composables/useGame'
-import './styles/demo.css'
-import './styles/game.css'
+
+useHead({
+  title: 'The Aviator',
+})
 
 const { game, resetGame } = useGame()
 
@@ -32,9 +35,8 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
           <svg id="levelCircle" class="level-circle" viewBox="0 0 200 200">
             <circle id="levelCircleBgr" r="80" cx="100" cy="100" fill="none" stroke="#d1b790" stroke-width="24px" />
             <circle
-              id="levelCircleStroke"
-              r="80" cx="100" cy="100"
-              fill="none" stroke="#68c3c0" stroke-width="14px" stroke-dasharray="502"
+              id="levelCircleStroke" r="80" cx="100" cy="100" fill="none" stroke="#68c3c0" stroke-width="14px"
+              stroke-dasharray="502"
               :stroke-dashoffset="502 * (1 - (game.distance % game.distanceForLevelUpdate) / game.distanceForLevelUpdate)"
             />
           </svg>
@@ -53,8 +55,7 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
           </div>
           <div id="energyValue" class="score__value score__value--energy">
             <div
-              id="energyBar" class="energy-bar"
-              :style="{
+              id="energyBar" class="energy-bar" :style="{
                 right: `${100 - game.energy}%`,
                 backgroundColor: (game.energy < 50) ? '#f25346' : '#68c3c0',
                 animationName: game.energy < 30 ? 'blinking' : 'none',
@@ -66,15 +67,8 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
     </div>
 
     <div id="world" class="world">
-      <TresCanvas
-        alpha
-        antialias
-        use-legacy-lights
-        class="game-holder"
-      >
-        <TresPerspectiveCamera
-          :position="[0, 200, game.planeDefaultHeight]"
-        />
+      <TresCanvas alpha antialias use-legacy-lights class="game-holder">
+        <TresPerspectiveCamera :position="[0, 200, game.planeDefaultHeight]" />
         <TresFog :args="[0xF7D9AA, 100, 950]" />
         <Game />
       </TresCanvas>
