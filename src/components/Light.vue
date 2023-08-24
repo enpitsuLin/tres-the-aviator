@@ -28,18 +28,18 @@ const { onLoop } = useRenderLoop()
 
 onLoop(({ delta }) => {
   if (ambientLight.value)
-    ambientLight.value.intensity += (0.5 - ambientLight.value.intensity) * delta * 5
+    ambientLight.value.intensity += (0.5 - ambientLight.value.intensity) * delta * 5 * Math.PI
 })
 </script>
 
 <template>
   <TresHemisphereLight :args="[0xAAAAAA, 0x000000, 0.9]" />
-  <TresAmbientLight ref="ambientLight" :color="0xDC8874" :intensity=".5" />
+  <TresAmbientLight ref="ambientLight" :color="0xDC8874" :intensity=".5 * Math.PI" />
   <TresDirectionalLight
     ref="shadowLight"
     cast-shadow
     :color="0xFFFFFF"
-    :intensity=".9"
+    :intensity=".9 * Math.PI"
     :position="[150, 350, 350]"
   />
   <TresCameraHelper
