@@ -3,7 +3,6 @@ import { TresCanvas } from '@tresjs/core'
 import { useEventListener } from '@vueuse/core'
 import { useHead } from '@vueuse/head'
 import Game from './components/Game.vue'
-import GithubCorners from './components/GithubCorners.vue'
 import { useGame } from './composables/useGame'
 
 useHead({
@@ -19,7 +18,10 @@ useEventListener(document, ['mouseup', 'touchend'], () => {
 </script>
 
 <template>
-  <GithubCorners />
+  <div style="position: fixed;z-index: 3;right:0;top:0;">
+    <github-corners style="position: fixed;z-index: 3;" repo="enpitsuLin/tres-the-aviator" fill="#68c3c0" blank />
+  </div>
+
   <div class="game-holder">
     <div class="header">
       <h1><span>the</span>Aviator</h1>
