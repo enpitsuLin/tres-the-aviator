@@ -14,18 +14,16 @@ const mat = new THREE.MeshPhongMaterial({
 const nBlocs = 3 + Math.floor(Math.random() * 3)
 
 const _position = new THREE.Vector3().normalize()
-const _rotation = new THREE.Vector3().normalize()
 
 const blocks = Array.from({ length: nBlocs }, (_, i) => {
   const position = _position.clone()
-  const rotation = _rotation.clone()
   position.x = i * 15
   position.y = Math.random() * 10
   position.z = Math.random() * 10
-  rotation.z = Math.random() * Math.PI * 2
-  rotation.y = Math.random() * Math.PI * 2
+  const rotationY = Math.random() * Math.PI * 2
+  const rotationZ = Math.random() * Math.PI * 2
   const s = 0.1 + Math.random() * 0.9
-  return { position, rotation, scale: s, id: `m-${i}` }
+  return { position, rotationY, rotationZ, scale: s, id: `m-${i}` }
 })
 
 const could = shallowRef<THREE.Object3D>()
@@ -43,7 +41,7 @@ defineExpose({ rotate })
 </script>
 
 <template>
-  <TresObject3D ref="could" name="cloud">
+  <TresObject3D ref="could" :rotate-z="rotationZ" :position="position" name="cloud">
     <TresMesh
       v-for="item in blocks"
       :key="item.id"
@@ -52,8 +50,9 @@ defineExpose({ rotate })
       :material="mat"
       :geometry="geom"
       :scale="[item.scale, item.scale, item.scale]"
-      :position="position"
-      :rotation-z="rotationZ"
+      :position="item.position"
+      :rotation-y="item.rotationY"
+      :rotation-z="item.rotationZ"
     />
   </TresObject3D>
 </template>

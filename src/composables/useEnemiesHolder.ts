@@ -76,7 +76,7 @@ export function useEnemiesHolder() {
         game.planeCollisionSpeedX = 100 * diffPos!.x / d
         game.planeCollisionSpeedY = 100 * diffPos!.y / d
         if (ambientLight.value)
-          ambientLight.value.intensity = 2
+          ambientLight.value.intensity = 2 * Math.PI
 
         removeEnergy()
         i--
