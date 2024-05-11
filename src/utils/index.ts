@@ -1,7 +1,9 @@
 export function normalize(
   v: number,
-  vmin: number, vmax: number,
-  tmin: number, tmax: number,
+  vmin: number,
+  vmax: number,
+  tmin: number,
+  tmax: number,
 ) {
   const nv = Math.max(Math.min(v, vmax), vmin)
   const dv = vmax - vmin

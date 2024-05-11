@@ -8,7 +8,6 @@ Now re-implements with TresJS and three.js r155
 
 [Demo](https://tres-the-aviator.enpitsulin.xyz/)
 
-
 ## Credits
 
 - [Three.js](http://threejs.org/)

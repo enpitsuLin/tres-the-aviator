@@ -4,7 +4,7 @@ import { shallowRef } from 'vue'
 import type { TresVector3 } from '@tresjs/core'
 import { Colors } from '../colors'
 
-defineProps<{ position: TresVector3;rotationZ: number }>()
+defineProps<{ position: TresVector3, rotationZ: number }>()
 
 const geom = new THREE.BoxGeometry(20, 20, 20)
 const mat = new THREE.MeshPhongMaterial({
