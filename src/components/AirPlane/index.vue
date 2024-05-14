@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type * as THREE from 'three'
 import { useMouse, useWindowSize } from '@vueuse/core'
 import { useRenderLoop, useTres } from '@tresjs/core'
 import { computed, toValue } from 'vue'

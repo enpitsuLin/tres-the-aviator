@@ -1,3 +1,4 @@
+import type * as THREE from 'three'
 import { shallowRef } from 'vue'
 
 const airplane = shallowRef<THREE.Object3D>()
