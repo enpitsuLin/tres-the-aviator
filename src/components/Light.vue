@@ -30,6 +30,7 @@ onLoop(({ delta }) => {
   if (ambientLight.value)
     ambientLight.value.intensity += (0.5 - ambientLight.value.intensity) * delta * 5 * Math.PI
 })
+const isDev = import.meta.env.DEV
 </script>
 
 <template>
@@ -43,7 +44,7 @@ onLoop(({ delta }) => {
     :position="[150, 350, 350]"
   />
   <TresCameraHelper
-    v-if="shadowLight && isReady"
+    v-if="shadowLight && isReady && isDev "
     :args="[shadowLight.shadow.camera]"
   />
 </template>
