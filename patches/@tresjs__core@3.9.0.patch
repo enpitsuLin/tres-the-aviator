@@ -1,0 +1,40 @@
+diff --git a/dist/src/types/index.d.ts b/dist/src/types/index.d.ts
+index 36ea716b14e8821eeae44ddb2301f3bd86bde9bc..b35a972fb092ee90e2252d20ffa73eb388321a66 100644
+--- a/dist/src/types/index.d.ts
++++ b/dist/src/types/index.d.ts
+@@ -108,7 +108,10 @@ export interface EventHandlers {
+     onWheel?: (event: ThreeEvent<WheelEvent>) => void;
+ }
+ interface MathRepresentation {
+-    set: (...args: number[] | [THREE.ColorRepresentation]) => any;
++    set: (...args: number[]) => any;
++}
++interface ColorRepresentation {
++    set: (...args: [THREE.ColorRepresentation]) => any;
+ }
+ interface VectorRepresentation extends MathRepresentation {
+     setScalar: (s: number) => any;
+@@ -118,7 +121,7 @@ export interface VectorCoordinates {
+     y: number;
+     z: number;
+ }
+-export type MathType<T extends MathRepresentation | THREE.Euler> = T extends THREE.Color ? ConstructorParameters<typeof THREE.Color> | THREE.ColorRepresentation : T extends VectorRepresentation | THREE.Layers | THREE.Euler ? T | Parameters<T['set']> | number | VectorCoordinates : T | Parameters<T['set']>;
++export type MathType<T extends MathRepresentation | ColorRepresentation | THREE.Euler> = T extends THREE.Color ? ConstructorParameters<typeof THREE.Color> | THREE.ColorRepresentation : T extends VectorRepresentation | THREE.Layers | THREE.Euler ? T | Parameters<T['set']> | number | VectorCoordinates : T | Parameters<T['set']>;
+ export type TresVector2 = MathType<THREE.Vector2>;
+ export type TresVector3 = MathType<THREE.Vector3>;
+ export type TresVector4 = MathType<THREE.Vector4>;
+@@ -127,7 +130,7 @@ export type TresLayers = MathType<THREE.Layers>;
+ export type TresQuaternion = MathType<THREE.Quaternion>;
+ export type TresEuler = MathType<THREE.Euler>;
+ type WithMathProps<P> = {
+-    [K in keyof P]: P[K] extends MathRepresentation | THREE.Euler ? MathType<P[K]> : P[K];
++    [K in keyof P]: P[K] extends MathRepresentation | ColorRepresentation | THREE.Euler ? MathType<P[K]> : P[K];
+ };
+ interface RaycastableRepresentation {
+     raycast: (raycaster: THREE.Raycaster, intersects: THREE.Intersection[]) => void;
+@@ -156,4 +159,4 @@ declare module 'vue' {
+     interface GlobalComponents extends TresComponents {
+     }
+ }
+-export {};
++export { };

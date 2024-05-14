@@ -4,16 +4,21 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@tresjs/core@3.9.0':
+    hash: ffnhyrdqlr3mqhlcfodjol7qcu
+    path: patches/@tresjs__core@3.9.0.patch
+
 importers:
 
   .:
     dependencies:
       '@tresjs/cientos':
         specifier: ^3.9.0
-        version: 3.9.0(@tresjs/core@3.9.0(three@0.164.1)(vue@3.4.27(typescript@5.4.5)))(three@0.164.1)(tweakpane@4.0.0)(vue@3.4.27(typescript@5.4.5))
+        version: 3.9.0(@tresjs/core@3.9.0(patch_hash=ffnhyrdqlr3mqhlcfodjol7qcu)(three@0.163.0)(vue@3.4.27(typescript@5.4.5)))(three@0.163.0)(tweakpane@4.0.0)(vue@3.4.27(typescript@5.4.5))
       '@tresjs/core':
         specifier: ^3.9.0
-        version: 3.9.0(three@0.164.1)(vue@3.4.27(typescript@5.4.5))
+        version: 3.9.0(patch_hash=ffnhyrdqlr3mqhlcfodjol7qcu)(three@0.163.0)(vue@3.4.27(typescript@5.4.5))
       '@vueuse/core':
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27(typescript@5.4.5))
@@ -24,8 +29,8 @@ importers:
         specifier: ^3.12.5
         version: 3.12.5
       three:
-        specifier: ^0.164.1
-        version: 0.164.1
+        specifier: ^0.163.0
+        version: 0.163.0
       vue:
         specifier: ^3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -34,8 +39,8 @@ importers:
         specifier: ^2.17.0
         version: 2.17.0(@vue/compiler-sfc@3.4.27)(eslint@9.2.0)(typescript@5.4.5)
       '@types/three':
-        specifier: ^0.164.0
-        version: 0.164.0
+        specifier: ^0.163.0
+        version: 0.163.0
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
         version: 5.0.4(vite@5.2.11)(vue@3.4.27(typescript@5.4.5))
@@ -528,9 +533,6 @@ packages:
 
   '@types/three@0.163.0':
     resolution: {integrity: sha512-uIdDhsXRpQiBUkflBS/i1l3JX14fW6Ot9csed60nfbZNXHDTRsnV2xnTVwXcgbvTiboAR4IW+t+lTL5f1rqIqA==, tarball: https://registry.npmmirror.com/@types/three/-/three-0.163.0.tgz}
-
-  '@types/three@0.164.0':
-    resolution: {integrity: sha512-SFDofn9dJVrE+1DKta7xj7lc4ru7B3S3yf10NsxOserW57aQlB6GxtAS1UK5To3LfEMN5HUHMu3n5v+M5rApgA==, tarball: https://registry.npmmirror.com/@types/three/-/three-0.164.0.tgz}
 
   '@types/trusted-types@2.0.3':
     resolution: {integrity: sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==}
@@ -1769,8 +1771,8 @@ packages:
     peerDependencies:
       three: '>=0.128.0'
 
-  three@0.164.1:
-    resolution: {integrity: sha512-iC/hUBbl1vzFny7f5GtqzVXYjMJKaTPxiCxXfrvVdBi1Sf+jhd1CAkitiFwC7mIBFCo3MrDLJG97yisoaWig0w==, tarball: https://registry.npmmirror.com/three/-/three-0.164.1.tgz}
+  three@0.163.0:
+    resolution: {integrity: sha512-HlMgCb2TF/dTLRtknBnjUTsR8FsDqBY43itYop2+Zg822I+Kd0Ua2vs8CvfBVefXkBdNDrLMoRTGCIIpfCuDew==, tarball: https://registry.npmmirror.com/three/-/three-0.163.0.tgz}
 
   through2@0.6.5:
     resolution: {integrity: sha512-RkK/CCESdTKQZHdmKICijdKKsCRVHs5KsLZ6pACAmF/1GPUQhonHSXWNERctxEp7RmvjdNbZTL5z9V7nSCXKcg==, tarball: https://registry.npmmirror.com/through2/-/through2-0.6.5.tgz}
@@ -2321,16 +2323,16 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tresjs/cientos@3.9.0(@tresjs/core@3.9.0(three@0.164.1)(vue@3.4.27(typescript@5.4.5)))(three@0.164.1)(tweakpane@4.0.0)(vue@3.4.27(typescript@5.4.5))':
+  '@tresjs/cientos@3.9.0(@tresjs/core@3.9.0(patch_hash=ffnhyrdqlr3mqhlcfodjol7qcu)(three@0.163.0)(vue@3.4.27(typescript@5.4.5)))(three@0.163.0)(tweakpane@4.0.0)(vue@3.4.27(typescript@5.4.5))':
     dependencies:
-      '@tresjs/core': 3.9.0(three@0.164.1)(vue@3.4.27(typescript@5.4.5))
+      '@tresjs/core': 3.9.0(patch_hash=ffnhyrdqlr3mqhlcfodjol7qcu)(three@0.163.0)(vue@3.4.27(typescript@5.4.5))
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
-      camera-controls: 2.8.3(three@0.164.1)
+      camera-controls: 2.8.3(three@0.163.0)
       stats-gl: 2.2.8
       stats.js: 0.17.0
-      three: 0.164.1
-      three-custom-shader-material: 5.4.0(three@0.164.1)
-      three-stdlib: 2.29.12(three@0.164.1)
+      three: 0.163.0
+      three-custom-shader-material: 5.4.0(three@0.163.0)
+      three-stdlib: 2.29.12(three@0.163.0)
       tweakpane: 4.0.0
       vue: 3.4.27(typescript@5.4.5)
     transitivePeerDependencies:
@@ -2338,12 +2340,12 @@ snapshots:
       - '@vue/composition-api'
       - react
 
-  '@tresjs/core@3.9.0(three@0.164.1)(vue@3.4.27(typescript@5.4.5))':
+  '@tresjs/core@3.9.0(patch_hash=ffnhyrdqlr3mqhlcfodjol7qcu)(three@0.163.0)(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       '@alvarosabu/utils': 3.1.1
       '@vue/devtools-api': 6.6.1
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
-      three: 0.164.1
+      three: 0.163.0
       vue: 3.4.27(typescript@5.4.5)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -2378,14 +2380,6 @@ snapshots:
   '@types/stats.js@0.17.0': {}
 
   '@types/three@0.163.0':
-    dependencies:
-      '@tweenjs/tween.js': 23.1.2
-      '@types/stats.js': 0.17.0
-      '@types/webxr': 0.5.2
-      fflate: 0.8.2
-      meshoptimizer: 0.18.1
-
-  '@types/three@0.164.0':
     dependencies:
       '@tweenjs/tween.js': 23.1.2
       '@types/stats.js': 0.17.0
@@ -2732,9 +2726,9 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camera-controls@2.8.3(three@0.164.1):
+  camera-controls@2.8.3(three@0.163.0):
     dependencies:
-      three: 0.164.1
+      three: 0.163.0
 
   caniuse-lite@1.0.30001617: {}
 
@@ -3740,15 +3734,15 @@ snapshots:
 
   text-table@0.2.0: {}
 
-  three-custom-shader-material@5.4.0(three@0.164.1):
+  three-custom-shader-material@5.4.0(three@0.163.0):
     dependencies:
       glsl-token-functions: 1.0.1
       glsl-token-string: 1.0.1
       glsl-tokenizer: 2.1.5
       object-hash: 3.0.0
-      three: 0.164.1
+      three: 0.163.0
 
-  three-stdlib@2.29.12(three@0.164.1):
+  three-stdlib@2.29.12(three@0.163.0):
     dependencies:
       '@types/draco3d': 1.4.2
       '@types/offscreencanvas': 2019.7.0
@@ -3756,9 +3750,9 @@ snapshots:
       draco3d: 1.5.6
       fflate: 0.6.10
       potpack: 1.0.2
-      three: 0.164.1
+      three: 0.163.0
 
-  three@0.164.1: {}
+  three@0.163.0: {}
 
   through2@0.6.5:
     dependencies:

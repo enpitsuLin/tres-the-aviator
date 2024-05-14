@@ -16,17 +16,22 @@
     "@vueuse/core": "^10.9.0",
     "@vueuse/head": "^2.0.0",
     "gsap": "^3.12.5",
-    "three": "^0.164.1",
+    "three": "^0.163.0",
     "vue": "^3.4.27"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.17.0",
-    "@types/three": "^0.164.0",
+    "@types/three": "^0.163.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "eslint": "^9.2.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
     "vue-tsc": "^2.0.17",
     "wc-github-corners": "^0.1.6"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@tresjs/core@3.9.0": "patches/@tresjs__core@3.9.0.patch"
+    }
   }
 }
