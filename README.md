@@ -2,7 +2,7 @@
 
 The game for the tutorial "The Making of 'The Aviator': Animating a Basic 3D Scene with Three.js", by Karim Maaloul.
 
-Now re-implements with TresJS and three.js r155
+Now re-implements with TresJS and three.js r163
 
 [Article on Codrops](http://tympanus.net/codrops/?p=26501)
 
