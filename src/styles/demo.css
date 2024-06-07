@@ -1,11 +1,3 @@
-@font-face {
-	font-family: 'codropsicons';
-	font-weight: normal;
-	font-style: normal;
-	src: url('../fonts/codropsicons/codropsicons.eot');
-	src: url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'), url('../fonts/codropsicons/codropsicons.woff') format('woff'), url('../fonts/codropsicons/codropsicons.ttf') format('truetype'), url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
-}
-
 *,
 *::after,
 *::before {
@@ -69,36 +61,6 @@ a:focus {
 .meta a:not(:last-child) {
 	border-right: 0;
 }
-
-.codrops-icon {
-	width: 4em;
-}
-
-.codrops-icon span {
-	display: none;
-}
-
-.codrops-icon::before {
-	font-family: 'codropsicons';
-	font-size: 1.15em;
-	font-weight: normal;
-	font-style: normal;
-	font-variant: normal;
-	line-height: 1;
-	text-transform: none;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-}
-
-.codrops-icon--drop::before {
-	content: '\e001';
-	color: #09c;
-}
-
-.codrops-icon--prev::before {
-	content: '\e004';
-}
-
 
 /* Demo links */
 
